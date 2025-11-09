@@ -12,7 +12,7 @@ El siguiente es el cuarto trabajo práctico de la materia de Programación Orien
 
 2. Problemas de rigidez, complejidad y acoplamiento
 - **Problema 1 Tratar Hojas y Kits como iguales:** El problema nace a partir de que el `CarritoDeCompras` debe manejar a los componentes individuales y a los compuestos de la misma manera. Si el carrito tiene que calcular su total, para saber el precio de cada ítem, su código se ve forzado a preguntar el tipo de cada uno. Esto resulta **rígido** en el caso de que el administrador quiera agregar nuevos tipos de items, se deberá modificar el código de la clase, como además resulta **complejo** porque posee una lógica que no le pertenece y genera un **alto acoplamiento**.  
-- **Problema 2 Añadir extras combinables:** El problema es que se tienen que poder agregar extras a un carrito y que se puedan combinar dos extras en un mismo componente. Si se quisiera implementar esto enc código, surgiría complejidad y rigidez, dos problemas que debemos evitar
+- **Problema 2 Añadir extras combinables:** El problema es que se tienen que poder agregar extras a un carrito y que se puedan combinar dos extras en un mismo componente. Si se quisiera implementar esto en código, surgiría complejidad y rigidez, dos problemas que debemos evitar
 
 ### Identificación del patrón
 
@@ -31,7 +31,9 @@ La finalidad de este patrón es que las hojas y las ramas implementen una interf
 
 Esta implementación hace que el `CarritoDeCompras`(el cliente) no sepa si está tratando con una Hoja o un Kit. Además de eliminar la rigidez y complejidad, haciendo que CarritoDeCompras no esté acoplado a todas las clases concretas, viendose forzado a utilizar una lógica compleja de `if/else` o `switch` para determinar cómo calcular el precio de cada ítem.
 
-
+**Decorator:** Se eligió este patrón a partir de la necesidad de poder agregar "extras" a cualquer componente, siendo estos también combinables. Se pueden agregar extras como no, este patrón permite que tengamos una composición dinámica, evitando rigidez y complejidad en el código. Para la implementacón de este patrón, se crean clases "Envoltorio" (`GarantiaExtendida` y `ServicioInstalacion`), ambas implementan también la anterior mencionada interfaz `ComponentesPC`. El decorador envuelve a un `ComponentePC` y modifica su comportamiento
+* `GarantiaExtendida.getPrecio()`: Devuelve `componente_envuelto.getPrecio() * 1.10`
+* `ServicioInstalacion.getPrecio()`: Devuelve `componente_envuelto.getPrecio() + 50`
 
 
 ## Escenario 2: Módulo de Generación de Reportes 
