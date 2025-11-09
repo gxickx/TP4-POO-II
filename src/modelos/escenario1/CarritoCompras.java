@@ -14,6 +14,7 @@ public class CarritoCompras {
         for (ComponentesPC item : this.items){
             totao += item.getPrecio();
         }
+        return total;
     }
 
 

@@ -8,7 +8,7 @@ public class GarantiaExtendida extends ExtraDecorador {
 
     @Override
     public double getPrecio() {
-        double precio = super.getPrecio;
+        double precio = super.getPrecio();
         return precio * 1.10;
     }
 
