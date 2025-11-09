@@ -32,6 +32,8 @@ La finalidad de este patrón es que las hojas y las ramas implementen una interf
 Esta implementación hace que el `CarritoDeCompras`(el cliente) no sepa si está tratando con una Hoja o un Kit. Además de eliminar la rigidez y complejidad, haciendo que CarritoDeCompras no esté acoplado a todas las clases concretas, viendose forzado a utilizar una lógica compleja de `if/else` o `switch` para determinar cómo calcular el precio de cada ítem.
 
 
+
+
 ## Escenario 2: Módulo de Generación de Reportes 
 ### Análisis del escenario
 1. Las principales clases que se identificaron en este escenario son:
@@ -39,6 +41,8 @@ Esta implementación hace que el `CarritoDeCompras`(el cliente) no sepa si está
     * `ServicioWebAFIP`: Es la clase que permite al usuario obtener los datos fiscales de los clientes.
     * `ProcesadorDeImpuestos`: Tiene como responsabilidad procesar los datos fiscales de los clientes para calcular los impuestos que deben cobrárseles.
     * `RenderizadorPDF`: Es la clase encargada de generar el reporte fiscal a partir de los impuestos calculados.
+
+    Por otra parte se cuenta con una clase `LectorDeDatos` que no es de uso exclusivo para este módulo pero se ve involucrada en el proceso.
 
 2. Problemas de rigidez, complejidad y acoplamiento
 - **Problema: El sistema es demasiado complejo.** Existe un gran problema acerca de la **complejidad** del proceso para generar un reporte. El usuario debe realizar numerosos pasos (conectarse a la DB, leer los datos, autenticarse en el servicio de la AFIP, obtener los datos que desea...) para poder generar un reporte. El proceso está **fuertemente acoplado** a cuatro clases, y se preferiría simplificar todo esto. 
@@ -52,6 +56,8 @@ Se identificó que para este escenario lo ideal es aplicar el patrón **Facade**
 Se eligió **Facade** ya que resulta la mejor opción para resolver este escenario. Este patrón nos permite simplicar los pasos requeridos para crear el reporte. Toda la lógica compleja será encapsulada por él. El usuario solo tendrá que interectuar con una clase (`GeneradorReporteFiscalFacade`) para poder realizar su tarea.
 
 Asimismo, se podrá desacoplar al cliente de las clases internas del subsistema. Si en algún momento la implementación de cualquiera de estas clases cambia, solo se modificará la fachada y la interfaz del cliente permanecerá igual.
+
+
 
 
 ## Escenario 3: Integración de API de Logística 
