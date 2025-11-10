@@ -64,7 +64,32 @@ Asimismo, se podrá desacoplar al cliente de las clases internas del subsistema.
 
 ## Escenario 3: Integración de API de Logística 
 ### Análisis del escenario
+1. Las principales clases que se determinaron son: 
+    * `IServicioEnvio`(Interfaz Target): Es la interfaz que nuestro sistema de E-Commerce (el cliente) espera. Sus responsabilidades son `calcularCosto`, `obtenerTiempoEstimado` y `despacharPedido`. Todas operando con `String`
+    * `ApiLogisticaVeloz`(Clase Adaptee): Clase externa, no modificable, que queremos utiilzar. Sus responsabilidades son `cotizarEnvio` y `enviarPaquete`.
+    * `SistemaEcommerce` (Cliente): Es el sistema principal del escenario. No sabe ni debe saber nada sobre `ApiLogisticaVeloz`.
 
+2. Los problemas identificados son:
+     * **Incompatibilidad de interfaz:** Los nombres de los métodos son distintios. (`calcularCosto` y `cotizarEnvio`).
+     * **Incompatibilidad de tipos de datos:** Para el código postal, la interfaz `Target` utiliza `String` mientras que el `Adaptee` usa `int`.
+     * **Incompatibilidad de estructura de datos:** El sistema cliente separa `calcularCosto` y `obtenerTiempoEstimado` en dos llamadas. La api devuelve ambos datos juntos en un objeto `Cotizacion` en una única llamada. Además, el sistema envía los datos de despacho como strings primitivos, cuando la api requiere que estos datos se agrupen en un objeto `DatosEnvio`.
+     * Rigidez: El sistema cliente del escenario no puede utilizar `ApiLogisticaVeloz` directamente. Si lo hicieramos, deberíamos reescribir todo el sistema.
+       
+### Identificación del patrón
+Este escenario describe perfectamente la necesidad de un **patrón adaptador (Adapter)**
+
+### Justificación de la elección
+Se eligió el patrón **Adapter** porque su intención es **convertir la interfaz de una clase en otra interfaz que el cliente espera**. En este caso sería adaptar a `ApiLogisticaVeloz` para que el cliente `SistemaEcommerce` pueda utilizarla. El Adapter permite que clases con interfaces incompatibles colaboren, algo que de otra manera sería imposible. 
+En nuestro caso, crearemos una clase `LogisticaVelozAdapter` que servirá como adaptador intermedio:
+1. **Implementará la interfaz `Target`**: El adaptador implementa la interfaz `IServicioEnvio`. Para el cliente, el adaptador se verá y comportará como cualquier otro servicio de envío.
+2. **Envolverá al `Adaptee`**: El adaptador tendrá una instancia de `ApiLogisticaVeloz` como atributo.
+3. **Realizara la traducción**: Cuando el cliente llame al método `calcularCosto (String cp)` en el adaptador, este:
+    * Transforma el `String` "1234" en un `int` 1234
+    * Llama al método `apiVeloz.cotizarEnvio(1234)
+    * Recibe el objeto `Cotizacion`
+    * Extrae y devuelve únicamente el costo
+  
+De esta manera, ni el sistema cliente ni la api externa necesitan ser modificados, permitiendo una integración limpia y manteniendo el desacoplamiento.
 
 
 
