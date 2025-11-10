@@ -1,10 +1,10 @@
-package escenario1;
+package modelos.escenario1;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Kit implements ComponentesPC {
 
-    private string nombre;
+    private String nombre;
     private double precio;
     private List<ComponentesPC> componentes = new ArrayList<>();
 
@@ -30,5 +30,5 @@ public class Kit implements ComponentesPC {
         }
 
         return total;
-
+    }
 }

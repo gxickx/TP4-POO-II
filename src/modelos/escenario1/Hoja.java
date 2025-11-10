@@ -1,4 +1,4 @@
-package escenario1;
+package modelos.escenario1;
 
 public class Hoja implements ComponentesPC{
     private String nombre;

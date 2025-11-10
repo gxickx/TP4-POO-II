@@ -1,4 +1,4 @@
-package escenario1;
+package modelos.escenario1;
 public abstract class ExtraDecorador implements ComponentesPC {
 
     // Atributo para saber a quién está "envolviendo"

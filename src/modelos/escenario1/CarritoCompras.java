@@ -1,9 +1,9 @@
-package escenario1;
+package modelos.escenario1;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarritoCompras {
-    private List<ComponentePC> items = new ArrayList<>();
+    private List<ComponentesPC> items = new ArrayList<>();
 
     public void agregarItem(ComponentesPC item) {
         this.items.add(item);
@@ -12,7 +12,7 @@ public class CarritoCompras {
     public double calcularTotal() {
         double total = 0;
         for (ComponentesPC item : this.items){
-            totao += item.getPrecio();
+            total += item.getPrecio();
         }
         return total;
     }

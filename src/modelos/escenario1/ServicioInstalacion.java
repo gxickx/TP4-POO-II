@@ -1,4 +1,4 @@
-package escenario1;
+package modelos.escenario1;
 
 public class ServicioInstalacion extends ExtraDecorador{
     public ServicioInstalacion(ComponentesPC componenteEnvuelto) {
