@@ -85,7 +85,7 @@ En nuestro caso, crearemos una clase `LogisticaVelozAdapter` que servirá como a
 2. **Envolverá al `Adaptee`**: El adaptador tendrá una instancia de `ApiLogisticaVeloz` como atributo.
 3. **Realizara la traducción**: Cuando el cliente llame al método `calcularCosto (String cp)` en el adaptador, este:
     * Transforma el `String` "1234" en un `int` 1234
-    * Llama al método `apiVeloz.cotizarEnvio(1234)
+    * Llama al método `apiVeloz.cotizarEnvio(1234)`
     * Recibe el objeto `Cotizacion`
     * Extrae y devuelve únicamente el costo
   
